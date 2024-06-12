@@ -38,6 +38,31 @@ function displayResults(weather) {
     hilow.innerText = `${Math.round(weather.main.temp_min)}°c / ${Math.round(
         weather.main.temp_max
     )}°c`;
+
+    // Обновление фона
+    updateBackground(weather.weather[0].main.toLowerCase());
+}
+
+function updateBackground(weather) {
+    let background = "";
+    switch (weather) {
+        case "clouds":
+            background = "url('images/clouds.png')";
+            break;
+        case "rain":
+            background = "url('images/rain.png')";
+            break;
+        case "sunny":
+        case "clear":
+            background = "url('images/clear.png')";
+            break;
+        case "snowy":
+            background = "url('images/snowy.png')";
+        // Добавьте другие условия, если нужно
+        default:
+            background = "url('images/default.png')";
+    }
+    document.body.style.backgroundImage = background;
 }
 
 function dateBuilder(d) {
@@ -67,8 +92,8 @@ function dateBuilder(d) {
 
     let day = days[d.getDay()];
     let date = d.getDate();
-    let month = months[d.getMonth()];
+    let month = d.getMonth();
     let year = d.getFullYear();
 
-    return `${day} ${date} ${month} ${year}`;
+    return `${day} ${date} ${months[month]} ${year}`;
 }
